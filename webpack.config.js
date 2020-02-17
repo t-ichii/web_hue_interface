@@ -27,6 +27,13 @@ module.exports = {
         ]
     },
     devServer: {
-        contentBase: outputPath
-    }
+        contentBase: outputPath,
+        proxy: {
+            '/hue_bridge': {
+                target: `http://${env.BRIDGE_IP}`,
+                secure: false,
+                pathRewrite: {'^/hue_1' : ''}
+            }
+        }
+    },
 };
